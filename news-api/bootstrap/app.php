@@ -1,6 +1,6 @@
 <?php
 
-// use App\Http\Middleware\SecureHeaders;
+use App\Http\Middleware\SecureHeaders;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/check-up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // $middleware->append(SecureHeaders::class);
+        $middleware->append(SecureHeaders::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

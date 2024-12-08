@@ -44,6 +44,7 @@ class NewsService extends NewsValidator
                     'category' => $article['category'],
                     'author' => $article['author'],
                     'publish_date' => $article['publish_date'],
+                    'image_url' => $article['image_url'],
                 ]);
             }
         }

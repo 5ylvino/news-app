@@ -25,6 +25,7 @@ class NewsValidator
                 $category = isset($article['category']) ? $article['category'] : null;
                 $author = isset($article['author']) ? $article['author'] : null;
                 $publish_date = isset($article['publishedAt']) ? $article['publishedAt'] : null;
+                $image_url = isset($article['urlToImage']) ? $article['urlToImage'] : null;
 
                 return [
                     'title' => $title,
@@ -33,6 +34,7 @@ class NewsValidator
                     'category' => $category,
                     'author' => $author,
                     'publish_date' => $publish_date,
+                    'image_url' => $image_url,
                 ];
 
             case NewsType::GUARDIAN_API:
@@ -42,6 +44,7 @@ class NewsValidator
                 $category = isset($article['pillarName']) ? $article['pillarName'] : null;
                 $author = isset($article['author']) ? $article['author'] : null;
                 $publish_date = isset($article['webPublicationDate']) ? $article['webPublicationDate'] : null;
+                $image_url = isset($article['image_url']) ? $article['image_url'] : null; //has not image by default
 
                 return [
                     'title' => $title,
@@ -50,6 +53,7 @@ class NewsValidator
                     'category' => $category,
                     'author' => $author,
                     'publish_date' => $publish_date,
+                    'image_url' => $image_url,
                 ];
 
             case NewsType::NYTIMES_API:
@@ -59,6 +63,7 @@ class NewsValidator
                 $category = isset($article['item_type']) ? $article['item_type'] : null;
                 $author = isset($article['byline']) ? $article['byline'] : null;
                 $publish_date = isset($article['published_date']) ? $article['published_date'] : null;
+                $image_url = count($article['multimedia']) > 0 ? $article['multimedia'][0] : null;
 
                 return [
                     'title' => $title,
@@ -67,6 +72,7 @@ class NewsValidator
                     'category' => $category,
                     'author' => $author,
                     'publish_date' => $publish_date,
+                    'image_url' => $image_url,
                 ];
 
             default:

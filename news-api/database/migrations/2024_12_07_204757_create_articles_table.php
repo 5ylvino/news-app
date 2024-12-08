@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('source')->nullable();
             $table->string('category')->nullable();
             $table->string('publish_date')->nullable();
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }

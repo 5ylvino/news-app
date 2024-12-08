@@ -28,7 +28,7 @@ class ArticleController extends Controller
             'date'
         ]);
 
-        $perPage = $request->get('per_page', 5);
+        $perPage = $request->get('per_page', 20);
         $articles = Article::filter($filters)->select([
             'title',
             'content',
@@ -36,6 +36,7 @@ class ArticleController extends Controller
             'source',
             'category',
             'publish_date',
+            'image_url',
         ])->paginate($perPage);
 
         return ArticleListResource::collection($articles);

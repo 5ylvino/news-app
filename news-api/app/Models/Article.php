@@ -16,6 +16,7 @@ class Article extends Model
         'source',
         'category',
         'publish_date',
+        'image_url',
     ];
 
     static function scopeFilter($query, $filters)

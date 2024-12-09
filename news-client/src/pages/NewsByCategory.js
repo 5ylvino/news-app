@@ -19,11 +19,12 @@ const filterOptions = [
   { name: '3 days ago', search_term: '3 days ago' }
 ];
 
-function NewByCategory() {
+function NewsByCategory() {
   const [searchParams] = useSearchParams();
   const page = searchParams.get('q');
   const [listPagination, setListPagination] = useState();
   const [listWithImage, setListWithImage] = useState([]);
+  const [listForCuratedPicks, setListForCuratedPicks] = useState([]);
   const [readNews, setReadNews] = useState();
   const [selectDay, setSelectDay] = useState();
 
@@ -35,7 +36,13 @@ function NewByCategory() {
   useEffect(() => {
     setListWithImage(filterList(data?.data?.data));
     setListPagination(data?.data);
+    // eslint-disable-next-line
   }, [page, data]);
+
+  useEffect(() => {
+   listForCuratedPicks?.length < 1 && setListForCuratedPicks(filterList(data?.data?.data));
+    // eslint-disable-next-line
+  }, []);
 
   const handleOnFilter = url => {
     httpClient
@@ -150,7 +157,9 @@ function NewByCategory() {
           />
         )}
       </main>
-      {listWithImage?.length > 0 && <RightSidebar data={listWithImage} />}
+      {listForCuratedPicks?.length > 0 && (
+        <RightSidebar data={listForCuratedPicks} />
+      )}
 
       {/* modal */}
       <ReadModal item={readNews} visible={!!readNews} onClose={setReadNews} />
@@ -158,4 +167,4 @@ function NewByCategory() {
   );
 }
 
-export default NewByCategory;
+export default NewsByCategory;

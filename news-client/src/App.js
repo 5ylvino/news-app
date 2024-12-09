@@ -9,7 +9,7 @@ import Loader from './components/Loader';
 import ErrorBoundary from './components/ErrorBoundary';
 import Layout from './components/Layout';
 import ProtectedRoutes from './components/ProtectedRoutes';
-import NewByCategory from './pages/NewByCategory';
+import NewsByCategory from './pages/NewsByCategory';
 import { TransporterManager } from './utils/action.context';
 
 const App = () => {
@@ -23,7 +23,7 @@ const App = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
-                <Route path='/category' element={<NewByCategory />} />
+                <Route path='/category' element={<NewsByCategory />} />
                 <Route element={<ProtectedRoutes />}>
                   <Route path='/preferences' element={<Preferences />} />
                 </Route>

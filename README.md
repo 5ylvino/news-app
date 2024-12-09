@@ -126,4 +126,7 @@ The application consist of the below layers of securities:
 11. Reusable custom hooks and components, context etc. for clean code base and maintenance (client), etc.
 
 
+EXAMPLE OF DEMO HOME SCREENSHOTVIEW
+<img width="1370" alt="Screenshot 2024-12-09 at 17 44 23" src="https://github.com/user-attachments/assets/abbc54db-c316-4005-afd5-b3718e0a363a">
+
 

@@ -23,7 +23,7 @@ class PreferenceController extends Controller
             'source',
             'category',
             'author',
-        ])]);
+        ]), "message" => "Added to preference"]);
     }
 
     /**

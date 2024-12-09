@@ -21,6 +21,7 @@ class ArticleListResource extends JsonResource
             'source'=> $this->source,
             'category'=> $this->category,
             'publish_date'=> $this->publish_date,
+            'image_url'=> $this->image_url,
         ];
     }
 }

@@ -16,7 +16,7 @@ class SuccessResource extends JsonResource
     {
         return [
             'error' => false,
-            'message' => 'Completed successfully',
+            'message' => $this->message ?? 'Completed successfully',
             'data' => $this->data
         ];
     }

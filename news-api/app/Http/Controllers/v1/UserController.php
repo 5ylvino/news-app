@@ -11,6 +11,7 @@ use App\Http\Resources\UserAuthResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -39,7 +40,7 @@ class UserController extends Controller
             'email',
             'token',
             'preferences'
-        ])]);
+        ]), 'message' => "Registered successfully"]);
     }
 
     /**
@@ -68,6 +69,6 @@ class UserController extends Controller
             'email',
             'token',
             'preferences'
-        ])]);
+        ]), 'message' => "Logged in successfully"]);
     }
 }

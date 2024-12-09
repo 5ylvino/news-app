@@ -21,8 +21,11 @@ class Article extends Model
 
     static function scopeFilter($query, $filters)
     {
+        if (!empty($filters['title'])) {
+            $query->whereLike('title', '%' . $filters['title'] . '%');
+        }
         if (!empty($filters['category'])) {
-            $query->where('category', $filters['category']);
+            $query->whereLike('category', '%' . $filters['category'] . '%');
         }
         if (!empty($filters['source'])) {
             $query->where('source', $filters['source']);

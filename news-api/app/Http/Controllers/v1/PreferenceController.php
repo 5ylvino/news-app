@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PreferenceRequest;
 use App\Http\Resources\SuccessResource;
 use App\Models\Preference;
+use Illuminate\Support\Facades\Request;
 
 class PreferenceController extends Controller
 {
@@ -28,7 +29,7 @@ class PreferenceController extends Controller
 
     /**
      * @listOfPreferences
-     * Show all preferences from the user
+     * Show all preferences for the user
      * @param PreferenceRequest $request
      * @return SuccessResource
      */
@@ -36,6 +37,7 @@ class PreferenceController extends Controller
     {
         $preferences = Preference::where('user_id', $request->user_id)
             ->select([
+                'id',
                 'source',
                 'category',
                 'author',
@@ -44,5 +46,19 @@ class PreferenceController extends Controller
             ->get();
 
         return SuccessResource::make((object)["data" => $preferences]);
+    }
+
+    /**
+     * @removePreference
+     * Remove a preference for the user
+     * @param Request $request
+     * @return SuccessResource
+     */
+    public function removePreference(Request $request, $id)
+    {
+        $preference = Preference::where('id', $id)
+            ->delete();
+
+        return SuccessResource::make((object)["data" => isset($preference), 'message' => 'Removed successfully']);
     }
 }

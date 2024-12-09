@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLogger } from '../utils/logger';
 import { filterList, filterListOfAuthor } from '../utils/list-helpers';
@@ -9,10 +9,11 @@ import { categoryLinks, navigationLinks } from '../constants/menu';
 import { useTransporter } from '../utils/action.context';
 import { sideBarTargets } from '../constants/transport-targets';
 
-const LeftSidebar = ({ data }) => {
+const CategorySidebar = ({ data }) => {
   const location = useLocation();
   const { email, first_name, isLoggedIn, id } = useLogger();
   const { payload, target, close } = useTransporter();
+  const [selectFilterOption, setSelectFilterOption] = useState();
 
   const list = filterList(
     data
@@ -52,8 +53,8 @@ const LeftSidebar = ({ data }) => {
   return (
     <aside
       className={
-        payload && target === sideBarTargets.main
-          ? 'w-full lg:w-1/4 bg-white shadow-md rounded-lg p-4 mb-6 lg:mb-0 lg:mr-4 bg-[rgba(0,0,0,0.2)] fixed inset-0  md:relative md:inset-full h-screen'
+        payload && target === sideBarTargets.category
+          ? 'w-full lg:w-1/4 bg-white shadow-md rounded-lg p-4 mb-6 lg:mb-0 lg:mr-4 bg-[rgba(0,0,0,0.2)] fixed inset-0 md:relative md:inset-full h-screen'
           : 'hidden md:block w-full lg:w-1/4 bg-white shadow-md rounded-lg p-4 mb-6 lg:mb-0 lg:mr-4'
       }>
       <span
@@ -61,6 +62,7 @@ const LeftSidebar = ({ data }) => {
         onClick={close}>
         X
       </span>
+      <div className='flex md:hidden justify-end items-end mb-4'></div>
       {isLoggedIn && (
         <div className='flex items-center mb-6'>
           <img
@@ -77,41 +79,42 @@ const LeftSidebar = ({ data }) => {
 
       {/* navigation */}
       <ul className='border-b border-gray-300 mb-4'>
-        {navigationLinks.map((link, index) => (
-          <li
-            key={index}
-            className={`mb-2 font-medium ${
-              location.pathname === link.path
-                ? 'text-orange-700'
-                : 'text-gray-700 hover:text-gray-500'
-            }`}>
-            <Link to={link.path}>{link.name}</Link>
-          </li>
-        ))}
+        {navigationLinks
+          .concat([{ name: 'Category', path: '/category' }])
+          .map((link, index) => (
+            <li
+              key={index}
+              className={`mb-2 font-medium ${
+                location.pathname === link.path
+                  ? 'text-orange-700'
+                  : 'text-gray-700 hover:text-gray-500'
+              }`}>
+              <Link to={link.path}>{link.name}</Link>
+            </li>
+          ))}
       </ul>
 
       {/* Categories */}
-      <div className='mb-6'>
-        <h3
-          className={`text-lg font-semibold mb-4 ${
-            location.pathname?.includes('category')
-              ? 'text-orange-700'
-              : 'text-gray-700 hover:text-gray-500'
-          }`}>
-          Categories
-        </h3>
-        <div className='flex flex-wrap gap-2'>
-          {categoryLinks.map((category, index) => (
-            <Link to={`/category?q=${category.path}`}>
-              <button
-                key={index}
-                className='bg-gray-200 text-sm px-4 py-1 rounded-full hover:bg-gray-300'>
-                {category.name}
-              </button>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <ul className='mb-6'>
+        {categoryLinks.map((category, index) => (
+          <Link
+            to={`/category?q=${category.path}`}
+            onClick={() => {
+              setSelectFilterOption(category.name);
+              close();
+            }}>
+            <li
+              key={index}
+              className={`mb-2 font-medium py-1 ${
+                selectFilterOption === category.name
+                  ? 'text-orange-600'
+                  : 'text-black'
+              }`}>
+              {category.name}
+            </li>
+          </Link>
+        ))}
+      </ul>
 
       {/* Recommended Follows */}
       {authors?.length > 0 && (
@@ -137,4 +140,4 @@ const LeftSidebar = ({ data }) => {
   );
 };
 
-export default LeftSidebar;
+export default CategorySidebar;

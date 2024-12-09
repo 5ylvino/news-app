@@ -9,14 +9,14 @@ Route::prefix('v1')->middleware('throttle:api')->group(function () {
     Route::controller(UserController::class)->group(function () {
         Route::post('/register', 'register');
         Route::post('/login', 'login');
+        Route::get('/articles', [ArticleController::class, 'listOfArticles']);
     });
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::controller(PreferenceController::class)->group(function () {
             Route::post('/preference', 'savePreferenceUpdate');
             Route::get('/{user_id}/preferences', 'listOfPreferences');
+            Route::delete('/preference/{id}', 'removePreference');
         });
-
-        Route::get('/articles', [ArticleController::class, 'listOfArticles']);
     });
 });

@@ -10,24 +10,27 @@ import ErrorBoundary from './components/ErrorBoundary';
 import Layout from './components/Layout';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import NewByCategory from './pages/NewByCategory';
+import { TransporterManager } from './utils/action.context';
 
 const App = () => {
   return (
     <Router>
       <ErrorBoundary>
-        <Layout>
-          <Suspense fallback={<Loader />}>
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/register' element={<Register />} />
-              <Route path='/category' element={<NewByCategory />} />
-              <Route element={<ProtectedRoutes />}>
-                <Route path='/preferences' element={<Preferences />} />
-              </Route>
-            </Routes>
-          </Suspense>
-        </Layout>
+        <TransporterManager>
+          <Layout>
+            <Suspense fallback={<Loader />}>
+              <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='/category' element={<NewByCategory />} />
+                <Route element={<ProtectedRoutes />}>
+                  <Route path='/preferences' element={<Preferences />} />
+                </Route>
+              </Routes>
+            </Suspense>
+          </Layout>
+        </TransporterManager>
       </ErrorBoundary>
     </Router>
   );

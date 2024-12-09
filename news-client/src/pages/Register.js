@@ -11,8 +11,7 @@ const Register = () => {
   const handleOnSubmit = (values, setSubmitting) => {
     httpClient
       .post(API_ENDPOINTS.register, values)
-      .then(response => {
-        const data = response.data;
+      .then(({ data }) => {
         setSubmitting(false);
         if (!data?.error) {
           toast.success(data?.message);
@@ -24,7 +23,6 @@ const Register = () => {
       })
       .catch(error => {
         setSubmitting(false);
-        console.log('error', error);
         toast.error(error?.message);
       });
   };

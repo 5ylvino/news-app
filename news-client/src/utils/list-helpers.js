@@ -30,3 +30,21 @@ export function filterListOfAuthor(list = []) {
       source: item?.source
     }));
 }
+
+/**
+ * Fetch list of sources
+ * @param Array list
+ * @param Array<string> list
+ */
+export function filterListOfSource(list = []) {
+  return list
+    ?.filter(item => !!item?.source && item)
+    ?.map(item => item?.source)
+    .reduce((acc, item) => {
+      if (acc?.includes(item)) {
+        return [...acc];
+      }
+      return [...acc, item];
+    }, [])
+    ?.slice(0, 13);
+}

@@ -8,8 +8,9 @@ import httpClient from '../service/client';
 import { API_ENDPOINTS } from '../service/api-endpoints';
 import { filterList } from '../utils/list-helpers';
 import Loader from '../components/Loader';
-import LeftSidebar from '../components/LeftSidebar';
 import RightSidebar from '../components/RightSidebar';
+import CategorySidebar from '../components/CategorySidebar';
+import ReadModal from '../components/ReadModal';
 
 const filterOptions = [
   { name: 'All', search_term: '' },
@@ -23,16 +24,13 @@ function NewByCategory() {
   const page = searchParams.get('q');
   const [listPagination, setListPagination] = useState();
   const [listWithImage, setListWithImage] = useState([]);
-  console.log('q', page);
+  const [readNews, setReadNews] = useState();
+  const [selectDay, setSelectDay] = useState();
 
   const { data, isLoading } = useSWR(
     `${API_ENDPOINTS.articles}?category=${page}`,
     httpClient.get
   );
-
-  // const { data: list, ...rest } = data?.data;
-  console.log('data?.data', filterList(data?.data?.data));
-  console.log('listWithImage', listWithImage);
 
   useEffect(() => {
     setListWithImage(filterList(data?.data?.data));
@@ -42,8 +40,7 @@ function NewByCategory() {
   const handleOnFilter = url => {
     httpClient
       .get(url)
-      .then(response => {
-        const data = response.data;
+      .then(({ data }) => {
         const { data: list, ...rest } = data;
         setListWithImage(filterList(list));
         setListPagination(rest);
@@ -77,8 +74,9 @@ function NewByCategory() {
 
   return (
     <div className='block md:flex'>
-      <LeftSidebar />
-      <main className='w-full lg:w-2/4 mr-0 md:mr-4'>
+      <CategorySidebar />
+      <main className='w-full lg:w-2/4 mr-0 md:mr-4 overflow-y-scroll max-h-screen'>
+        <div className='text-3xl text-orange-600 capitalize'>{page}</div>
         {/* Search Section */}
         <div className='mb-4'>
           <input
@@ -90,27 +88,37 @@ function NewByCategory() {
           <div className='flex flex-wrap mt-2 gap-2'>
             {filterOptions.map(({ name, search_term }, index) => (
               <button
-                onClick={e =>
-                  onSearch(search_term ? `?date=${search_term}` : '?page=1')
-                }
+                onClick={e => {
+                  onSearch(search_term ? `?date=${search_term}` : '?page=1');
+                  setSelectDay(name);
+                }}
                 key={index}
-                className='text-sm bg-gray-200 px-4 py-1 rounded-full hover:bg-gray-300'>
+                className={
+                  selectDay === name
+                    ? 'text-sm bg-orange-200 px-4 py-1 rounded-full hover:bg-orange-300'
+                    : 'text-sm bg-gray-200 px-4 py-1 rounded-full hover:bg-gray-300'
+                }>
                 {name}
               </button>
             ))}
           </div>
         </div>
 
-        <Pagination
-          onNext={onNext}
-          onPrevious={onPrevious}
-          currentPage={listPagination?.meta?.current_page}
-          lastPage={listPagination?.meta?.last_page}
-        />
+        {listPagination?.meta?.last_page > 1 && (
+          <Pagination
+            onNext={onNext}
+            onPrevious={onPrevious}
+            currentPage={listPagination?.meta?.current_page}
+            lastPage={listPagination?.meta?.last_page}
+          />
+        )}
 
         {/* Trending Content */}
         {listWithImage.map((item, index) => (
-          <div key={index} className='bg-white shadow-md rounded-lg p-4 mb-6'>
+          <div
+            key={index}
+            className='bg-white shadow-md rounded-lg p-4 mb-6'
+            onClick={() => setReadNews(item)}>
             <div className='flex justify-between items-center mb-4'>
               <span className='text-orange-600 font-bold'>
                 Trending #{index + 1}
@@ -133,7 +141,7 @@ function NewByCategory() {
           <div className='text-orange-600 text-center'> List is Empty</div>
         )}
 
-        {listWithImage?.length >= listPagination?.meta?.per_page && (
+        {listPagination?.meta?.last_page > 1 && (
           <Pagination
             onNext={onNext}
             onPrevious={onPrevious}
@@ -142,7 +150,10 @@ function NewByCategory() {
           />
         )}
       </main>
-      <RightSidebar data={listWithImage} />
+      {listWithImage?.length > 0 && <RightSidebar data={listWithImage} />}
+
+      {/* modal */}
+      <ReadModal item={readNews} visible={!!readNews} onClose={setReadNews} />
     </div>
   );
 }

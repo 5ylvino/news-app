@@ -1,4 +1,3 @@
-import React from 'react';
 import { decryptData } from './encrypt-decrypt';
 
 export function useLogger() {

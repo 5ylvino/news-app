@@ -13,7 +13,7 @@ MySQL
 ### App Setup:
 Assuming you already have php, composer and laravel on your machine
 
-1). clone the app `git clone https://<host>/news-api`
+1). clone the app `https://github.com/5ylvino/news-app.git`
 
 2). Switch to app folder with `cd news-api` and run `composer install` to install all dependencies
 
@@ -39,13 +39,6 @@ The application consist of the below layers of securities:
 6). CORS restriction to allow only the specified client app
 
 7). As security we are using UUID as primary key for each table
-
-## Routing and endpoints
-1). Health check  `GET check-up`
-
-2). Register `POST api/v1/login`
-
-3). Login `POST api/v1/register`
 
 ## Features
 1). Fetches new update by automation via task scheduling every minute.

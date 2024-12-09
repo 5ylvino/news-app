@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./news-client
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=news_api
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+    depends_on:
+      - db
+  frontend:
+    build:
+      context: ./news-api
+    ports:
+      - "3000:3000"
+  db:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: news_api

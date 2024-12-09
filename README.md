@@ -62,7 +62,9 @@ root>
 ### App Setup:
 Assuming you already have php, composer, etc. on your machine
 
-1. clone the app `https://github.com/5ylvino/news-app.git`
+1a. clone the app `git clone https://github.com/5ylvino/news-app.git`
+
+1b. Switch to folder `cd news-app`
 
 #### backend
 2. Switch to app folder with `cd news-api` and run `composer install` to install all dependencies

@@ -6,7 +6,7 @@ import { API_ENDPOINTS } from './api-endpoints';
 
 const httpClient = axios.create({
   baseURL: PUBLIC_API_ENDPOINT,
-  timeout: 1000,
+  timeout: 1500,
   headers: { Accept: 'application/json', 'Content-Type': 'application/json' }
 });
 

@@ -36,13 +36,9 @@ function NewsByCategory() {
   useEffect(() => {
     setListWithImage(filterList(data?.data?.data));
     setListPagination(data?.data);
+    listForCuratedPicks?.length < 1 && setListForCuratedPicks(filterList(data?.data?.data));
     // eslint-disable-next-line
   }, [page, data]);
-
-  useEffect(() => {
-   listForCuratedPicks?.length < 1 && setListForCuratedPicks(filterList(data?.data?.data));
-    // eslint-disable-next-line
-  }, []);
 
   const handleOnFilter = url => {
     httpClient

@@ -81,8 +81,10 @@ otherwise the app won't be able to access news data external
 #### front-end
 7. Switch to app folder with `cd news-client` and run `yarn install` to install all dependencies
 
-8. Create env file from duplicate `cp -rf .env.example .env`. Then copy the news data api keys from the email sent,
-otherwise the app won't be able to access news data external. API HOST URL FROM BACKEND is `http://127.0.0.1:8000/api/v1` . It have prefix as shown, so copy and paste.
+8. Create env file from duplicate `cp -rf .env.example .env`. 
+    - Then copy the news data api keys from the email sent,
+otherwise the app won't be able to access news data externally viz `NEWS_API_KEY`, `GUARDIAN_API_KEY`, `NYTIMES_API_KEY`. API HOST URL FROM BACKEND is `http://127.0.0.1:8000/api/v1` . It have prefix as shown, so copy and paste. \
+    - Setup you Database with `MYSQL DRIVER` viz `DB_CONNECTION=mysql`, `DB_DATABASE=news_api` etc.
 
 9. Start serve by running `yarn start` . Host url is `http://127.0.0.1:3000`
 

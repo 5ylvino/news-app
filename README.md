@@ -73,6 +73,7 @@ Assuming you already have php, composer, etc. on your machine
     - Then copy the news data api keys from the email sent,
 otherwise the app won't be able to access news data externally viz `NEWS_API_KEY`, `GUARDIAN_API_KEY`, `NYTIMES_API_KEY`. \
     - Setup your Database with `MYSQL DRIVER` viz `DB_CONNECTION=mysql`, `DB_DATABASE=news_api` etc. Also, Create the database if you are using MAMP or XAMP, etc.
+    - Migrate your database schema by runing `php artisan migrate`
 
 4. Start server by running `php artisan serve`. Host url is `http://127.0.0.1:8000` 
 
@@ -83,8 +84,7 @@ otherwise the app won't be able to access news data externally viz `NEWS_API_KEY
 #### front-end
 7. Switch to app folder with `cd news-client` and run `yarn install` to install all dependencies
 
-8. Then copy the news data api keys from the email sent,
-otherwise the app won't be able to access news data external. API HOST URL FROM BACKEND is `http://127.0.0.1:8000/api/v1` . It have prefix as shown, so copy and paste.
+8. Create env file from duplicate `cp -rf .env.example .env`. API HOST URL FROM BACKEND is `http://127.0.0.1:8000/api/v1` . It have prefix as shown, so copy and paste.
 
 9. Start serve by running `yarn start` . Host url is `http://127.0.0.1:3000`
 

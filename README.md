@@ -88,6 +88,7 @@ otherwise the app won't be able to access news data externally viz `NEWS_API_KEY
 
 9. Start serve by running `yarn start` . Host url is `http://127.0.0.1:3000`
 
+NOTE: The job runs every 5 minutes, so for the first time after setup wait after 5 minutes and reload to see home screen news contents.
 
 ## Security layers
 The application consist of the below layers of securities:
